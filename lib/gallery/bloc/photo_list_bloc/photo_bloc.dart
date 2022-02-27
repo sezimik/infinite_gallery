@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_gallery/gallery/bloc/photo_bloc/photo_event.dart';
-import 'package:infinite_gallery/gallery/bloc/photo_bloc/photo_state.dart';
+import '../photo_list_bloc/photo_event.dart';
+import '../photo_list_bloc/photo_state.dart';
 import '../../repositories/repositories.dart';
 
 
