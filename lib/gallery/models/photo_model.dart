@@ -47,6 +47,7 @@ class PhotoModel extends Equatable {
 
   @override
   List<Object?> get props => [
+    albumId,
         id,
         title,
         url,
