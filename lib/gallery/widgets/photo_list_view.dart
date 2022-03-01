@@ -17,19 +17,19 @@ class _PhotoListViewState extends State<PhotoListView> {
   @override
   Widget build(BuildContext context) {
     imageCacher();
-    return BlocBuilder<LikeCubit, List<int>>(builder: (kcontext, likes) {
+    return BlocBuilder<LikeCubit, List<int>>(builder: (context, likes) {
+      
       return ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: BlocProvider.of<PhotoBloc>(context).state.completed
               ? widget.models.length + 1
               : widget.models.length,
           itemBuilder: (scontext, index) {
-
             if (index == widget.models.length - 2) {
               BlocProvider.of<PhotoBloc>(context)
                   .add(const PhotoEventRequest());
             }
-            
+
             // shows an alert tile when the users reaches th end of the list(5000 photos!)
             return index < widget.models.length
                 ? customTile(widget.models[index],
@@ -172,21 +172,23 @@ class _PhotoListViewState extends State<PhotoListView> {
     );
   }
 
-
 // prefetching thumbnail images for bttr scroll experience.
   void imageCacher() {
-    int queryLimit = 25;
-    var newItems = widget.models
-        .getRange(widget.models.length - queryLimit, widget.models.length)
-        .toList();
-    var urls = newItems.map((e) => e.thumbnailUrl).toList();
+    if (widget.models.isNotEmpty) {
+      int queryLimit =
+          widget.models.length.toInt() > 25 ? 25 : widget.models.length.toInt();
+      var newItems = widget.models
+          .getRange(widget.models.length - queryLimit, widget.models.length)
+          .toList();
+      var urls = newItems.map((e) => e.thumbnailUrl).toList();
 
-    for (var i = 0; i < urls.length; i++) {
-      // try {
-      precacheImage(NetworkImage(urls[i]), context)
-          .then((_) {})
-          .whenComplete(() {})
-          .catchError((error) {});
+      for (var i = 0; i < urls.length; i++) {
+        // try {
+        precacheImage(NetworkImage(urls[i]), context)
+            .then((_) {})
+            .whenComplete(() {})
+            .catchError((error) {});
+      }
     }
   }
 }

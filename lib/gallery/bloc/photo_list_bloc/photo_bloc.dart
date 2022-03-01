@@ -30,7 +30,7 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
       if (state.requestStatus == PhotoRequestStatus.initialized) {
         return stateEmitter(state.updateProp(
             photoList: _newPhotoList,
-            requestStatus: PhotoRequestStatus.suscess,
+            requestStatus: PhotoRequestStatus.success,
             completed: false));
       } else {
 
@@ -39,13 +39,13 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
         _newPhotoList.isNotEmpty
             ? stateEmitter(state.updateProp(
                 photoList: [...state.photoList, ..._newPhotoList],
-                requestStatus: PhotoRequestStatus.suscess,
+                requestStatus: PhotoRequestStatus.success,
                 completed: false))
             :
             /// updates the state with no future requests 
              stateEmitter(state.updateProp(
                 photoList: state.photoList,
-                requestStatus: PhotoRequestStatus.suscess,
+                requestStatus: PhotoRequestStatus.success,
                 completed: true));
       }
     } catch (error){

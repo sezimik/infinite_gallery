@@ -34,7 +34,7 @@ class _GalleryState extends State<Gallery> {
         builder: (context, state) {
           return state.requestStatus == PhotoRequestStatus.initialized
               ? const LoaderWidget()
-              : state.requestStatus == PhotoRequestStatus.suscess
+              : state.requestStatus == PhotoRequestStatus.success
                   ? PhotoListView(
                       models: state.photoList,
                     )

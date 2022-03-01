@@ -10,7 +10,7 @@ I first created multiple classes for state management(bottom of the file) then I
 */
 
 // called based on http request status 
-enum PhotoRequestStatus { initialized, suscess, error }
+enum PhotoRequestStatus { initialized, success, error }
 
 class PhotoState extends Equatable {
   final List<PhotoModel> photoList;
