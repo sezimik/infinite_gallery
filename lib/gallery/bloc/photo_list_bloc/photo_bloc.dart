@@ -1,4 +1,6 @@
+import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_gallery/config/config.dart';
 import '../photo_list_bloc/photo_event.dart';
 import '../photo_list_bloc/photo_state.dart';
 import '../../repositories/repositories.dart';
@@ -7,7 +9,7 @@ import '../../repositories/repositories.dart';
 
 class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
 
-  final _repository = PhotoRepository();
+ PhotoRepository  _repository = PhotoRepository();
 
   PhotoBloc() : super(const PhotoState()) {
     on<PhotoEventRequest>(_onRequst);
@@ -48,7 +50,12 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
       }
     } catch (error){
       stateEmitter(state.updateProp(
-          errorMessage: "Somthing went wrong!\nplease check your internet connection.", requestStatus: PhotoRequestStatus.error));
+          errorMessage: kErrorMessage, requestStatus: PhotoRequestStatus.error));
     } 
+  }
+
+// used for injecting mockclients during tests
+    void injectMockClient(http.Client client) {
+    _repository = PhotoRepository(client: client);
   }
 }
